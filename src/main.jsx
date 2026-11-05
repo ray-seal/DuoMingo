@@ -203,8 +203,8 @@ function App(){
   const totalPhrases=lessons.reduce((n,l)=>n+l.phrases.length,0);
 
   function openLesson(id){setLessonId(id);setPhraseIndex(0);setTab('lesson');}
-  function markLearned(p){if(!learned.includes(p.fr)){setLearned(v=>[...v,p.fr]);setXp(v=>v+5);setToast('+5 XP. Votre français progresse !');setTimeout(()=>setToast(''),1800);}}
-  function nextPhrase(){if(phraseIndex<lesson.phrases.length-1){setPhraseIndex(v=>v+1);}else{if(!completed.includes(lesson.id)){setCompleted(v=>[...v,lesson.id]);setXp(v=>v+20);}setLessonId(null);setTab('learn');setToast('Lesson complete! +20 XP');setTimeout(()=>setToast(''),2200);}}
+  function markLearned(p){if(!learned.includes(p.fr)){setLearned(v=>[...v,p.fr]);setXp(v=>v+5);setToast(language==='fr'?'+5 XP. Votre français progresse !':language==='es'?'+5 XP. ¡Tu español mejora!':'+5 XP. Your English is improving!');setTimeout(()=>setToast(''),1800);}}
+  function nextPhrase(){if(phraseIndex<lesson.phrases.length-1){setPhraseIndex(v=>v+1);}else{if(!completed.includes(lesson.id)){setCompleted(v=>[...v,lesson.id]);setXp(v=>v+20);}setLessonId(null);setTab('learn');setToast(language==='fr'?'Leçon terminée ! +20 XP':language==='es'?'¡Lección completada! +20 XP':'Lesson complete! +20 XP');setTimeout(()=>setToast(''),2200);}}
   function startQuiz(){setQuizIndex(0);setChoice(null);setAnswered(false);setQuizDone(false);setTab('quiz');}
   function submitAnswer(){if(choice===null)return;setAnswered(true);if(choice===questions[quizIndex].correct)setXp(v=>v+10);}
   function nextQuestion(){if(quizIndex<questions.length-1){setQuizIndex(v=>v+1);setChoice(null);setAnswered(false);}else{setQuizDone(true);}}
