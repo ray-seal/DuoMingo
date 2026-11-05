@@ -1,6 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import './style.css';
+import { authClient } from './auth-client.js';
+if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
 
 const lessons = [
   { id:'polite', title:'Polite-ish beginnings', subtitle:'For when you are still pretending to be civil', level:'Easy', emoji:'🥐', phrases:[
@@ -75,6 +77,15 @@ const questions = [
 
 function App(){
   const [tab,setTab]=useState('learn');
+  const [session,setSession]=useState(null);
+  const [accountOpen,setAccountOpen]=useState(false);
+  const [authMode,setAuthMode]=useState('signin');
+  const [authEmail,setAuthEmail]=useState('');
+  const [authPassword,setAuthPassword]=useState('');
+  const [authName,setAuthName]=useState('');
+  const [authBusy,setAuthBusy]=useState(false);
+  const [authError,setAuthError]=useState('');
+  const [syncStatus,setSyncStatus]=useState('Saved on this device');
   const [lessonId,setLessonId]=useState(null);
   const [phraseIndex,setPhraseIndex]=useState(0);
   const [quizIndex,setQuizIndex]=useState(0);
@@ -91,6 +102,61 @@ function App(){
   useEffect(()=>localStorage.setItem('duomingo-completed',JSON.stringify(completed)),[completed]);
   useEffect(()=>localStorage.setItem('duomingo-learned',JSON.stringify(learned)),[learned]);
 
+
+  useEffect(()=>{
+    if(!authClient) return;
+    let live=true;
+    authClient.getSession().then(async result=>{
+      const current=result?.data?.session;
+      if(!live || !current) return;
+      setSession(current);
+      try {
+        const tokenResult=await authClient.token();
+        const token=tokenResult?.data?.token;
+        if(!token) return;
+        const response=await fetch('/api/progress',{headers:{Authorization:'Bearer '+token}});
+        if(!response.ok) throw new Error('Sync unavailable');
+        const remote=await response.json();
+        setCompleted(v=>[...new Set([...v,...(remote.completedLessons||[])])]);
+        setLearned(v=>[...new Set([...v,...(remote.learnedPhrases||[])])]);
+        setXp(v=>Math.max(v,Number(remote.xp)||0));
+        setSyncStatus('Synced to your account');
+      } catch { setSyncStatus('Signed in · sync will retry'); }
+    }).catch(()=>{});
+    return ()=>{live=false;};
+  },[]);
+
+  useEffect(()=>{
+    if(!session || !authClient) return;
+    const timer=setTimeout(async()=>{
+      try {
+        const tokenResult=await authClient.token();
+        const token=tokenResult?.data?.token;
+        if(!token) return;
+        const response=await fetch('/api/progress',{method:'PUT',headers:{'Content-Type':'application/json',Authorization:'Bearer '+token},body:JSON.stringify({xp,completedLessons:completed,learnedPhrases:learned})});
+        if(!response.ok) throw new Error('Sync failed');
+        setSyncStatus('Synced to your account');
+      } catch { setSyncStatus('Sync paused · will retry'); }
+    },1200);
+    return ()=>clearTimeout(timer);
+  },[session,xp,completed,learned]);
+
+  async function handleAuthSubmit(event){
+    event.preventDefault();setAuthBusy(true);setAuthError('');
+    try {
+      if(!authClient) throw new Error('Neon Auth is not configured in this deployment.');
+      const result=authMode==='signup'
+        ? await authClient.signUp.email({email:authEmail,password:authPassword,name:authName||authEmail.split('@')[0]})
+        : await authClient.signIn.email({email:authEmail,password:authPassword});
+      if(result?.error) throw new Error(result.error.message||'Authentication failed.');
+      const current=await authClient.getSession();
+      if(current?.data?.session){setSession(current.data.session);setAccountOpen(false);setSyncStatus('Syncing account…');}
+      else setAuthError('Request completed. Please sign in to continue.');
+    } catch(error){setAuthError(error.message||'Could not sign in. Please try again.');}
+    finally{setAuthBusy(false);}
+  }
+  async function handleSignOut(){await authClient?.signOut();setSession(null);setSyncStatus('Saved on this device');}
+
   const lesson=lessons.find(l=>l.id===lessonId);
   const phrase=lesson?.phrases[phraseIndex];
   const progress=Math.round((completed.length/lessons.length)*100);
@@ -106,8 +172,8 @@ function App(){
 
   return <div className="app-shell">
     <header className="topbar">
-      <button className="brand" onClick={()=>{setTab('learn');setLessonId(null)}} aria-label="DuoMingo home"><span className="brand-mark">🦩</span><span>Duo<span>Mingo</span><small>FRENCH FOR THE THOROUGHLY FED UP</small></span></button>
-      <div className="stats"><span className="stat">⚡ {xp} XP</span><span className="stat">🔥 {completed.length} / {lessons.length}</span></div>
+      <button className="brand" onClick={()=>{setTab('learn');setLessonId(null)}} aria-label="DuoMingo home"><img className="brand-logo" src="./flamingo.svg" alt=""/><span>Duo<span>Mingo</span><small>LANGUAGES FOR THE THOROUGHLY FED UP</small></span></button>
+      <div className="stats"><span className="stat">⚡ {xp} XP</span><span className="stat">🔥 {completed.length} / {lessons.length}</span><button className="account-button" onClick={()=>setAccountOpen(true)}>{session?.user?.name||"Sign in"}</button></div>
     </header>
 
     <main>
@@ -137,8 +203,11 @@ function App(){
       {tab==='phrases' && <section className="phrasebook"><p className="eyebrow">YOUR POCKET-SIZED SURVIVAL KIT</p><h1>The phrasebook</h1><p className="intro">Every phrase you've met so far, ready for deployment.</p>{lessons.flatMap(l=>l.phrases).map(p=><article className="phrase-row" key={p.fr}><div><h3>{p.fr}</h3><p className="pronunciation">{p.pron}</p><strong>{p.meaning}</strong><p className="muted">{p.literal}</p></div><span className="collected">{learned.includes(p.fr)?'✓ Learned':'☆'}</span></article>)}</section>}
     </main>
     {tab!=='lesson'&&<nav className="bottom-nav"><button className={tab==='learn'?'active':''} onClick={()=>setTab('learn')}>🗺️<span>Learn</span></button><button className={tab==='quiz'?'active':''} onClick={startQuiz}>🎯<span>Quiz</span></button><button className={tab==='phrases'?'active':''} onClick={()=>setTab('phrases')}>📖<span>Phrasebook</span></button></nav>}
+
+    {accountOpen&&<div className="modal-backdrop" onClick={()=>setAccountOpen(false)}><section className="account-modal" onClick={e=>e.stopPropagation()}><button className="modal-close" onClick={()=>setAccountOpen(false)}>×</button><p className="eyebrow">YOUR PERSONAL LANGUAGE MENACE PROFILE</p><h2>{session?'Account synced. Excellent.':'Save your progress'}</h2>{session?<><p className="muted">{session.user?.email}</p><p className="sync-status">{syncStatus}</p><button className="primary full" onClick={handleSignOut}>Sign out</button></>:<><p className="muted">Carry your XP, lessons and phrasebook between devices.</p><form onSubmit={handleAuthSubmit} className="auth-form">{authMode==='signup'&&<input value={authName} onChange={e=>setAuthName(e.target.value)} placeholder="Display name" autoComplete="name"/>}<input type="email" required value={authEmail} onChange={e=>setAuthEmail(e.target.value)} placeholder="Email address" autoComplete="email"/><input type="password" required minLength="8" value={authPassword} onChange={e=>setAuthPassword(e.target.value)} placeholder="Password (8+ characters)" autoComplete={authMode==='signup'?'new-password':'current-password'}/>{authError&&<p className="auth-error">{authError}</p>}<button className="primary full" disabled={authBusy}>{authBusy?'One moment…':authMode==='signup'?'Create account':'Sign in'}</button></form><button className="text-button mode-toggle" onClick={()=>{setAuthMode(v=>v==='signup'?'signin':'signup');setAuthError('')}}>{authMode==='signup'?'Already have an account? Sign in':'New here? Create an account'}</button><p className="sync-status">{syncStatus}</p></>}</section></div>}
+
     {toast&&<div className="toast">{toast}</div>}
-    <footer>DUOMINGO · APPRENDRE À DIRE N'IMPORTE QUOI · MADE WITH QUESTIONABLE INTENT 🇫🇷</footer>
+    <footer>DUOMINGO · LEARN TO SAY ABSOLUTELY ANYTHING · MADE WITH QUESTIONABLE INTENT 🌍</footer>
   </div>
 }
 
