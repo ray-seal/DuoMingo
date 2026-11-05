@@ -271,9 +271,26 @@ function App(){
         ? await authClient.signUp.email({email:authEmail,password:authPassword,name:authName||authEmail.split('@')[0]})
         : await authClient.signIn.email({email:authEmail,password:authPassword});
       if(result?.error) throw new Error(result.error.message||'Authentication failed.');
-      const current=await authClient.getSession();
-      if(current?.data?.session){setSession(current.data.session);setAccountOpen(false);setSyncStatus('Syncing account…');}
-      else setAuthError('Request completed. Please sign in to continue.');
+
+      // Neon Auth can return the authenticated user with the sign-in response
+      // before its session lookup has refreshed. Prefer the direct response,
+      // then fall back to the persisted browser session.
+      let activeSession=result?.data?.session||null;
+      let activeUser=result?.data?.user||null;
+      if(!activeSession){
+        const current=await authClient.getSession();
+        activeSession=current?.data?.session||null;
+        activeUser=activeUser||current?.data?.user||null;
+      }
+      if(activeSession || activeUser){
+        setSession(activeSession||{user:activeUser});
+        setAccountOpen(false);
+        setSyncStatus('Signed in · syncing progress…');
+      } else {
+        throw new Error(authMode==='signup'
+          ? 'Your account request was accepted, but no session was returned. Switch to Sign in and log in with the account you just created.'
+          : 'Your details were accepted, but Safari did not return an active session. Please close and reopen DuoMingo, then try signing in again.');
+      }
     } catch(error){setAuthError(error.message||'Could not sign in. Please try again.');}
     finally{setAuthBusy(false);}
   }
@@ -321,14 +338,14 @@ function App(){
 
   return <div className="app-shell">
     <header className="topbar">
-      <button className="brand" onClick={()=>{setTab('learn');setLessonId(null)}} aria-label="DuoMingo home"><img className="brand-logo" src="./flamingo.svg" alt=""/><span>Duo<span>Mingo</span><small>LANGUAGES FOR THE THOROUGHLY FED UP</small></span></button>
+      <button className="brand" onClick={()=>{setTab('learn');setLessonId(null)}} aria-label="DuoMingo home"><img className="brand-logo" src="/flamingo.svg" alt=""/><span>Duo<span>Mingo</span><small>LANGUAGES FOR THE THOROUGHLY FED UP</small></span></button>
       <div className="stats"><span className="stat">⚡ {xp} XP</span><span className="stat">🔥 {completed.length} / {lessons.length}</span><button className="account-button" onClick={()=>setAccountOpen(true)}>{session?.user?.name||"Sign in"}</button></div>
     </header>
 
     <main>
       {tab==='learn' && <div className="layout">
         <section className="welcome">
-          <div><p className="eyebrow">BONJOUR, TROUBLE</p><h1>Learn languages.<br/><em>Lose your patience</em><br/>in style.</h1><p className="intro">French, Spanish, German and British English. Useful phrases, glorious insults and absolutely no patience required.</p><button className="primary" onClick={()=>openLesson(courseLessons.find(l=>!completed.includes(l.id))?.id||courseLessons[0].id)}>Continue learning <span>→</span></button></div>
+          <div><p className="eyebrow">BONJOUR, TROUBLE</p><h1>Learn languages.<br/><em>Lose your patience</em><br/>in style.</h1><p className="intro">French and British English. Useful phrases, glorious insults and absolutely no patience required.</p><button className="primary" onClick={()=>openLesson(courseLessons.find(l=>!completed.includes(l.id))?.id||courseLessons[0].id)}>Continue learning <span>→</span></button></div>
           <div className="hero-art"><div className="sun"></div><div className="speech">FOUTEZ-MOI<br/>LA PAIX !</div><div className="flamingo">🦩</div><div className="coffee">☕</div></div>
         </section>
         <section className="progress-card"><div className="progress-head"><div><p className="eyebrow">YOUR INTERNATIONAL REVOLUTION</p><h2>Course progress</h2></div><strong>{progress}%</strong></div><div className="progress-track"><div style={{width:progress+'%'}}/></div><p className="muted">{completed.length} of {lessons.length} lessons completed · {learned.length} of {totalPhrases} phrases collected</p></section>
