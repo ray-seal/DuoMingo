@@ -66,7 +66,11 @@ const questions = [
   {q:'Someone keeps interrupting your coffee break. What do you say?',a:['Foutez-moi la paix !','Je voudrais un croissant.','Il pleut des cordes.'],correct:0,why:'Correct. You are asking to be left in peace. The coffee remains sacred.'},
   {q:'What does “J\'en ai marre” mean?',a:['I have a horse.','I am fed up.','I want more jam.'],correct:1,why:'Exactly. It is a natural, common way to say you have had enough.'},
   {q:'Which phrase means “I am exhausted”?',a:['Je suis crevé.','Je suis une baguette.','Je mange la lune.'],correct:0,why:'Correct. Crevé is informal for exhausted.'},
-  {q:'Which phrase is the most vulgar?',a:['Laissez-moi tranquille.','Ça suffit maintenant.','Va te faire foutre !'],correct:2,why:'Yes. Very offensive. Use only if you understand the consequences.'}
+  {q:'Which French exclamation often means “Fuck!” or “Bloody hell!”?',a:['Putain !','Bonjour !','Merci !'],correct:0,why:'Putain is very common in informal speech, but it is still a strong vulgarity.'},
+  {q:'How could you call someone a “knobhead” with comic flair?',a:['Tête de nœud !','Une bière !','À demain !'],correct:0,why:'Tête de nœud has a similar colourful feel. Not a literal translation.'},
+  {q:'Which phrase politely ends a pointless conversation?',a:['Je préfère que nous en restions là.','Je veux une baguette.','Quel beau temps !'],correct:0,why:'It means “I think we should leave it there”. Office diplomacy at its finest.'},
+  {q:'Which phrase means “That’s fucking annoying”?',a:['Ça fait chier.','Je suis ravi.','À votre santé.'],correct:0,why:'Ça fait chier is vulgar and commonly used to describe something irritating.'},
+  {q:'Which phrase means “What a liability / what a muppet”?',a:['Quel boulet !','Une table.','Je décompresse.'],correct:0,why:'Boulet is a colourful way to describe someone who makes things difficult.'}
 ];
 
 function App(){
