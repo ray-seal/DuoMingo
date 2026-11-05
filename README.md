@@ -6,10 +6,10 @@ A cheerful, slightly irreverent French-learning PWA for the phrases your textboo
 
 ## First version
 
-- Four bite-sized lesson paths, from polite to gloriously fed up
+- Nine bite-sized lesson paths, from polite to gloriously fed up
 - Natural meaning, literal translation, and pronunciation guides
 - Phrasebook for learned expressions
-- Multiple-choice quiz with XP
+- Multiple-choice quiz with XP, now covering the expanded vocabulary
 - Progress saved locally in the browser
 - Responsive mobile-first layout and installable web-app manifest
 
