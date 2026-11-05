@@ -5,6 +5,35 @@ import { authClient } from './auth-client.js';
 if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
 
 const lessons = [
+  {id:'french-words-1',language:'fr',pathOrder:1,singleWords:true,title:'First words: the essentials',subtitle:'Five small words with enormous emotional range',level:'Beginner',emoji:'🧱',phrases:[
+    {fr:'Merde',pron:'mehrd',literal:'Shit',meaning:'Shit! / Damn!',note:'A very common swear word. It can express frustration, surprise or anger. It is vulgar, but often used as an everyday exclamation.'},
+    {fr:'Putain',pron:'pew-tan',literal:'Whore',meaning:'Fuck! / Bloody hell!',note:'One of the most frequently heard French swear words. Literally offensive, but often used as an exclamation. Context and tone matter.'},
+    {fr:'Con',pron:'kohn',literal:'Idiot / fool',meaning:'Idiot / dickhead',note:'A common, blunt insult. Connasse is the feminine form. It can be playful between friends or genuinely insulting.'},
+    {fr:'Connard',pron:'koh-nar',literal:'Arsehole',meaning:'Arsehole / bastard',note:'Stronger and more personal than con. Usually directed at a man; connasse is the feminine form.'},
+    {fr:'Bordel',pron:'bor-del',literal:'Brothel',meaning:'Fucking hell! / What a mess!',note:'Used as an exclamation or to describe chaos. Quel bordel ! means what a bloody mess!'}
+  ]},
+  {id:'french-words-2',language:'fr',pathOrder:2,singleWords:true,title:'More words for bad days',subtitle:'Build your vocabulary before building your insults',level:'Beginner',emoji:'🧩',phrases:[
+    {fr:'Chiant',pron:'shee-ahn',literal:'A pain / annoying',meaning:'A pain in the arse / annoying',note:'Informal and mildly vulgar. C’est chiant means it is a pain or really annoying.'},
+    {fr:'Foutre',pron:'footr',literal:'To fuck',meaning:'To fuck / to do (vulgar)',note:'A very vulgar verb that appears in many common expressions, including foutre la paix. Learn to recognise it before deploying it.'},
+    {fr:'Merdeux',pron:'mehr-duh',literal:'Shitty / little shit',meaning:'A little shit / snotty brat',note:'Insulting and dismissive. Often used about someone considered immature or unpleasant.'},
+    {fr:'Abruti',pron:'ah-brew-tee',literal:'Imbecile',meaning:'Idiot / moron',note:'A common insult. Espèce d’abruti means you absolute idiot.'},
+    {fr:'Crétin',pron:'kray-tan',literal:'Cretin',meaning:'Idiot / moron',note:'A recognisable insult, usually less vulgar than connard.'}
+  ]},
+  {id:'french-building-1',language:'fr',pathOrder:3,title:'Put the words to work',subtitle:'Turn single swear words into useful little explosions',level:'Beginner',emoji:'🧱',phrases:[
+    {fr:'Merde alors !',pron:'mehrd ah-lor',literal:'Shit then!',meaning:'Well, shit! / Bloody hell!',note:'A natural exclamation of surprise or frustration. The alors adds emphasis.'},
+    {fr:'Oh putain !',pron:'oh pew-tan',literal:'Oh, whore!',meaning:'Oh, fuck! / Oh, bloody hell!',note:'A very common spoken exclamation. Strong language, but often used as an emotional reaction.'},
+    {fr:'Quel bordel !',pron:'kell bor-del',literal:'What a brothel!',meaning:'What a bloody mess!',note:'A common expression for chaos, disorder or a ridiculous situation.'},
+    {fr:'C’est chiant.',pron:'say shee-ahn',literal:'It is annoying / a pain.',meaning:'It’s a pain in the arse.',note:'Everyday informal French. Useful when a situation is irritating.'},
+    {fr:'Quel con !',pron:'kell kohn',literal:'What an idiot!',meaning:'What a dickhead!',note:'A short, direct insult. Quel connard is stronger and more personal.'}
+  ]},
+  {id:'french-building-2',language:'fr',pathOrder:4,title:'Short phrases for the fed up',subtitle:'The patience bar is officially flashing red',level:'Elementary',emoji:'😤',phrases:[
+    {fr:'J’en ai marre.',pron:'zhahn ay mahr',literal:'I have had enough of it.',meaning:'I’m fed up.',note:'One of the most useful everyday French expressions. Informal, but not especially vulgar.'},
+    {fr:'Ça me saoule.',pron:'sah muh sohl',literal:'That bores me / fills me with drink.',meaning:'That does my head in.',note:'Very common informal French. Literally linked to making someone drunk, but used to mean something is annoying.'},
+    {fr:'Laisse-moi tranquille.',pron:'less mwah trahn-keel',literal:'Leave me peaceful.',meaning:'Leave me alone.',note:'Direct but not particularly rude. A useful first boundary phrase.'},
+    {fr:'C’est n’importe quoi !',pron:'say nahm-por-tuh kwah',literal:'It is anything!',meaning:'That’s complete nonsense!',note:'Extremely useful everyday French. It can express disbelief, criticism or frustration.'},
+    {fr:'Tu m’énerves.',pron:'tew may-nairv',literal:'You annoy me.',meaning:'You’re annoying me.',note:'Direct and clear. Less vulgar than telling someone to go away.'}
+  ]},
+
   { id:'polite', title:'Polite-ish beginnings', subtitle:'For when you are still pretending to be civil', level:'Easy', emoji:'🥐', phrases:[
     {fr:'Je voudrais un café, s\'il vous plaît.',pron:'zhuh voo-dreh uhn kah-fay, seel voo pleh',literal:'I would like a coffee, if it pleases you.',meaning:'I would like a coffee, please.',note:'A genuinely useful phrase. We do teach those occasionally.'},
     {fr:'Laissez-moi tranquille.',pron:'leh-say mwah trahn-keel',literal:'Leave me peaceful.',meaning:'Leave me alone.',note:'The polite version. Keep it in your pocket for awkward moments.'},
@@ -296,7 +325,7 @@ function App(){
   }
   async function handleSignOut(){await authClient?.signOut();setSession(null);setSyncStatus('Saved on this device');}
 
-  const courseLessons=lessons.filter(l=>(l.language||'fr')===language);
+  const courseLessons=lessons.filter(l=>(l.language||'fr')===language).sort((a,b)=>(a.pathOrder??(a.language==='en'?100:20))-(b.pathOrder??(b.language==='en'?100:20)));
   const lesson=lessons.find(l=>l.id===lessonId);
   const phrase=lesson?.phrases[phraseIndex];
   const currentExercises=lesson&&phrase?phraseExercises(phrase,lesson):[];
@@ -307,6 +336,19 @@ function App(){
   function openLesson(id){setLessonId(id);setPhraseIndex(0);setExerciseIndex(0);setExerciseChoice(null);setExerciseAnswered(false);setMistakes([]);setLessonPhase('intro');setReviewIndex(0);setTab('lesson');}
   function phraseExercises(p, course){
     const pool=course.phrases.filter(x=>x.fr!==p.fr);
+    if(course.singleWords){
+      const distractors=pool.map(x=>x.meaning);
+      const words=pool.map(x=>x.fr);
+      const sounds=pool.map(x=>x.pron);
+      const pick=(answer,others)=>[...new Set([answer,...others.filter(x=>x!==answer)])].slice(0,4).sort((a,b)=>a.localeCompare(b));
+      return [
+        {prompt:'What does this French word mean?',display:p.fr,options:pick(p.meaning,distractors),answer:p.meaning,explain:p.note},
+        {prompt:'Choose the correct French word',display:'“'+p.meaning+'”',options:pick(p.fr,words),answer:p.fr,explain:'The word is '+p.fr+'.'},
+        {prompt:'How is it pronounced?',display:p.fr,options:pick(p.pron,sounds),answer:p.pron,explain:'Pronunciation: '+p.pron},
+        {prompt:'How strong is this word?',display:p.fr,options:pick(p.note,['Polite and formal.','A neutral everyday greeting.','A vulgar or insulting expression.']),answer:p.note,explain:p.note},
+        {prompt:'Which situation fits this word best?',display:p.fr,options:pick(p.meaning,distractors),answer:p.meaning,explain:p.note}
+      ];
+    }
     const unique=values=>[...new Set(values.filter(Boolean))];
     const words=p.fr.replace(/[!?.,¿¡]/g,'').split(' ').filter(Boolean);
     const missing=words[0]||p.fr;
