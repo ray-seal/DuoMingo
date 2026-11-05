@@ -96,6 +96,48 @@ const lessons = [
     {fr:'So ein Quatsch!',pron:'zoh ine kvatch',literal:'Such nonsense!',meaning:'What a load of rubbish!',note:'A useful everyday dismissal. Less aggressive than the strongest swear words.'},
     {fr:'Ein Bier, bitte.',pron:'ine beer bit-tuh',literal:'A beer, please.',meaning:'A beer, please.',note:'Short, simple and very useful.'},
     {fr:'Sprich mich nicht an, bis ich mein Bier ausgetrunken habe.',pron:'shprikh mikh nikht an biss ikh mine beer owss-guh-troon-ken hah-buh',literal:'Do not speak to me until I have drunk my beer up.',meaning:'Don’t talk to me until I’ve finished my beer.',note:'A long sentence for a very important boundary. German compound words are only the beginning.'}
+  ]},
+  {id:'british-decency',language:'en',title:'Basic human decency',subtitle:'A tiny island of manners in a sea of utter nonsense',level:'Essential',emoji:'🌸',phrases:[
+    {fr:'Please.',pron:'pleez',literal:'A polite request marker.',meaning:'Please.',note:'Compulsory British equipment. Even a request to move a wheelie bin may require it.'},
+    {fr:'Thank you.',pron:'thank-yoo',literal:'An expression of gratitude.',meaning:'Thank you.',note:'Always thank the bus driver. Even if the journey involved near-death experiences.'},
+    {fr:'Sorry, are you alright?',pron:'sor-ee, ar yoo awl-ryt',literal:'An apology followed by a welfare check.',meaning:'Sorry, are you okay?',note:'Can be used when someone bumps into you. You may also apologise to the doorframe.'},
+    {fr:'After you.',pron:'af-ter yoo',literal:'You may proceed before me.',meaning:'Please go first.',note:'A small act of courtesy. Often accompanied by an elaborate doorway dance.'},
+    {fr:'No worries, you’re welcome.',pron:'noh wur-eez, yor wel-kum',literal:'There is no problem; you are welcome.',meaning:'No problem at all.',note:'A friendly response to thanks. British politeness levels remain operational.'}
+  ]},
+  {id:'british-apologies',language:'en',title:'Sorry for absolutely everything',subtitle:'Taking responsibility for events you did not cause',level:'Survival',emoji:'🙏',phrases:[
+    {fr:'Sorry, I didn’t see you there.',pron:'sor-ee, eye did-unt see yoo thair',literal:'An apology for not noticing someone.',meaning:'Sorry, I didn’t notice you.',note:'Frequently said when somebody else walks directly into you.'},
+    {fr:'I’m terribly sorry to bother you.',pron:'aym tair-uh-blee sor-ee tuh both-er yoo',literal:'I regret interrupting you.',meaning:'Excuse me, may I ask you something?',note:'A very polite opener. Can precede a perfectly reasonable request or a complaint of volcanic proportions.'},
+    {fr:'Sorry, was that my fault?',pron:'sor-ee, woz that my fawlt',literal:'An apology while checking responsibility.',meaning:'Sorry, did I cause that?',note:'The British instinct is to apologise first and investigate the wreckage later.'},
+    {fr:'I’m sure it was an honest mistake.',pron:'aym shoor it woz an on-ist mis-tayk',literal:'I believe the error was accidental.',meaning:'It’s okay, I think you made an honest mistake.',note:'A generous phrase. Tone determines whether you mean it or are preparing a strongly worded email.'},
+    {fr:'No, no, it’s absolutely fine.',pron:'noh noh, its ab-suh-loot-lee fine',literal:'Everything is entirely acceptable.',meaning:'It’s fine.',note:'May mean it is genuinely fine, or that the speaker has mentally written a 900-word complaint.'}
+  ]},
+  {id:'british-pub',language:'en',title:'Pub diplomacy',subtitle:'Keeping the peace between the crisps and the fruit machine',level:'Cultural exchange',emoji:'🍺',phrases:[
+    {fr:'You alright, mate?',pron:'yoo awl-ryt mayt',literal:'Are you well, friend?',meaning:'Hello, how are you?',note:'Often a greeting rather than a request for a detailed medical history.'},
+    {fr:'Could I get a pint, please?',pron:'kood eye get uh pynt pleez',literal:'May I have a pint?',meaning:'Could I have a pint, please?',note:'Polite ordering. The please is not optional, even when the queue is six deep.'},
+    {fr:'It’s my round.',pron:'its my rownd',literal:'I am buying the group’s drinks this turn.',meaning:'I’m buying the next drinks.',note:'A social promise with financial consequences. Keep track of whose round it is.'},
+    {fr:'Let’s not make a thing of it.',pron:'lets not mayk uh thing uhv it',literal:'Let us not turn this into an issue.',meaning:'Let’s leave it alone and move on.',note:'A useful de-escalation phrase when pub diplomacy is wobbling.'},
+    {fr:'I think we’ve both had enough for tonight.',pron:'eye think weev both had ee-nuf for tuh-nyt',literal:'We have each reached our limit this evening.',meaning:'Let’s call it a night.',note:'A tactful exit line. Often the wisest sentence spoken in the building.'}
+  ]},
+  {id:'british-backhanded',language:'en',title:'Compliments with a suspicious aftertaste',subtitle:'Technically kind. Emotionally complicated.',level:'Advanced',emoji:'🎀',phrases:[
+    {fr:'Well, that’s certainly one way of doing it.',pron:'well thats sur-tun-lee wun way uhv doo-ing it',literal:'That is one possible method.',meaning:'I would not have done it that way.',note:'A classic diplomatic response. The word certainly carries a suspicious amount of weight.'},
+    {fr:'You’re looking very well.',pron:'yor look-ing ver-ee well',literal:'You appear healthy.',meaning:'You look good.',note:'Usually sincere, but context and delivery can turn it into a wonderfully ambiguous observation.'},
+    {fr:'That’s an interesting choice.',pron:'thats an in-truh-sting choys',literal:'That choice is interesting.',meaning:'I would never have chosen that.',note:'A polite phrase with a wide emotional range. Use responsibly.'},
+    {fr:'I admire your confidence.',pron:'eye ad-my-er yor kon-fi-dens',literal:'I respect your self-assurance.',meaning:'You are certainly confident.',note:'Can be genuine praise or a velvet-wrapped expression of disbelief.'},
+    {fr:'You’ve certainly made an impression.',pron:'yoov sur-tun-lee mayd an im-presh-un',literal:'You have caused people to notice you.',meaning:'People will remember that.',note:'The impression may be excellent. The sentence carefully declines to confirm this.'}
+  ]},
+  {id:'british-absurd',language:'en',title:'The zoological insult department',subtitle:'For when ordinary vocabulary has failed you',level:'Highly unnecessary',emoji:'🐿️',phrases:[
+    {fr:'I’m sorry you have the IQ of a dilapidated squirrel. It’s not your fault.',pron:'aym sor-ee yoo hav the eye-kyoo uhv uh dih-lap-ih-day-tid skwir-ul. its not yor fawlt',literal:'Your intelligence is compared with a worn-out squirrel, with added sympathy.',meaning:'You are spectacularly foolish, and I am pretending to feel sorry for you.',note:'An original absurdist insult from the DuoMingo phrasebook. Dilapidated squirrels are not a recognised scientific IQ category.'},
+    {fr:'Your father was a hamster and your mother smells of elderberries.',pron:'yor fah-thur woz uh ham-ster and yor muh-thur smellz uhv el-der-ber-eez',literal:'An accusation involving a hamster and elderberries.',meaning:'A deliberately ridiculous insult about someone’s family.',note:'A playful reworking of the famous Monty Python insult. This version is not a standard British expression.'},
+    {fr:'Go shit out a hedgehog.',pron:'goh shit owt uh hedj-hog',literal:'A highly improbable digestive instruction.',meaning:'Go away. I am thoroughly fed up with you.',note:'Invented comic abuse, not a conventional idiom. Hedgehogs are advised to remain uninvolved.'},
+    {fr:'You absolute weapons-grade plum.',pron:'yoo ab-suh-loot wep-uns-grayd plum',literal:'A plum of exceptional weapon quality.',meaning:'You are an extraordinary idiot.',note:'Freshly manufactured British nonsense. No actual weapons certification is implied.'},
+    {fr:'You rancid little turnip.',pron:'yoo ran-sid lit-ul turn-ip',literal:'A small, unpleasant root vegetable.',meaning:'You are deeply irritating.',note:'An invented vegetable-based insult. Best delivered with the grave disappointment of a disappointed headteacher.'}
+  ]},
+  {id:'british-queue',language:'en',title:'Queue etiquette and public fury',subtitle:'The sacred British art of being cross in silence',level:'Survival',emoji:'🚶',phrases:[
+    {fr:'I think there’s a queue.',pron:'eye think thairz uh kyoo',literal:'I believe people are waiting in line.',meaning:'There is a queue. Please join the back.',note:'A gentle correction. The unspoken rules of queuing are extremely serious.'},
+    {fr:'Sorry, I believe you were before me.',pron:'sor-ee, eye buh-leev yoo wur buh-for mee',literal:'I think you arrived earlier than I did.',meaning:'You were ahead of me in the queue.',note:'Polite, fair and quietly protective of the queue.'},
+    {fr:'I’ve been waiting here for ages.',pron:'ayv bin way-ting heer for ay-jiz',literal:'I have waited here for a long time.',meaning:'I’ve been waiting a very long time.',note:'A standard complaint. The exact duration may be measured in geological eras.'},
+    {fr:'There’s no need to push.',pron:'thairz noh need tuh push',literal:'Pushing is unnecessary.',meaning:'Please stop pushing.',note:'A calm boundary. The tone may become less calm if repeated.'},
+    {fr:'Well, this is taking forever.',pron:'well this iz tay-king for-ev-er',literal:'This is taking an extremely long time.',meaning:'This is taking ages.',note:'A universal queue-side observation, usually delivered to absolutely nobody in particular.'}
   ]}
 
 
@@ -216,18 +258,18 @@ function App(){
     const unique=values=>[...new Set(values.filter(Boolean))];
     const words=p.fr.replace(/[!?.,¿¡]/g,'').split(' ').filter(Boolean);
     const missing=words[0]||p.fr;
-    const shuffle=values=>unique(values).sort((a,b)=>a.localeCompare(b)).slice(0,4);
+    const options=(answer,distractors)=>unique([answer,...distractors.filter(value=>value!==answer)]).slice(0,4).sort((a,b)=>a.localeCompare(b));
     const meanings=pool.map(x=>x.meaning);
     const phrases=pool.map(x=>x.fr);
     const sounds=pool.map(x=>x.pron);
     return [
-      {prompt:'What does this phrase mean?',display:p.fr,options:shuffle([p.meaning,...meanings,'Good morning.','Where is the station?']),answer:p.meaning,explain:p.note},
-      {prompt:'Find the missing word',display:p.fr.replace(missing,'_____'),options:shuffle([missing,...words.slice(1),...pool.map(x=>x.fr.split(' ')[0]),'bonjour','merci']),answer:missing,explain:'The complete phrase is: '+p.fr},
-      {prompt:'Translate this into the language you are learning',display:'“'+p.meaning+'”',options:shuffle([p.fr,...phrases,'Bonjour !','Merci beaucoup !']),answer:p.fr,explain:'The phrase is: '+p.fr},
-      {prompt:'Which word order makes the correct phrase?',display:'Build the phrase: '+p.meaning,options:shuffle([p.fr,...phrases,'Bonjour !','Merci beaucoup !']),answer:p.fr,explain:'Correct phrase: '+p.fr},
-      {prompt:'Choose the pronunciation',display:p.fr,options:shuffle([p.pron,...sounds,'bon-zhoor','mah-ree']),answer:p.pron,explain:'Pronunciation: '+p.pron},
-      {prompt:'What does this phrase communicate?',display:p.fr,options:shuffle([p.meaning,...meanings,'I would like a table.','See you tomorrow.']),answer:p.meaning,explain:p.literal+' → '+p.meaning},
-      {prompt:'Which description best fits this phrase?',display:p.fr,options:shuffle([p.note,'A polite greeting.','A request for directions.','An order at a café.']),answer:p.note,explain:p.meaning}
+      {prompt:'What does this phrase mean?',display:p.fr,options:options(p.meaning,[...meanings,'Good morning.','Where is the station?']),answer:p.meaning,explain:p.note},
+      {prompt:'Find the missing word',display:p.fr.replace(missing,'_____'),options:options(missing,[...words.slice(1),...pool.map(x=>x.fr.split(' ')[0]),'bonjour','merci']),answer:missing,explain:'The complete phrase is: '+p.fr},
+      {prompt:'Translate this into the language you are learning',display:'“'+p.meaning+'”',options:options(p.fr,[...phrases,'Bonjour !','Merci beaucoup !']),answer:p.fr,explain:'The phrase is: '+p.fr},
+      {prompt:'Which word order makes the correct phrase?',display:'Build the phrase: '+p.meaning,options:options(p.fr,[...phrases,'Bonjour !','Merci beaucoup !']),answer:p.fr,explain:'Correct phrase: '+p.fr},
+      {prompt:'Choose the pronunciation',display:p.fr,options:options(p.pron,[...sounds,'bon-zhoor','mah-ree']),answer:p.pron,explain:'Pronunciation: '+p.pron},
+      {prompt:'What does this phrase communicate?',display:p.fr,options:options(p.meaning,[...meanings,'I would like a table.','See you tomorrow.']),answer:p.meaning,explain:p.literal+' → '+p.meaning},
+      {prompt:'Which description best fits this phrase?',display:p.fr,options:options(p.note,['A polite greeting.','A request for directions.','An order at a café.']),answer:p.note,explain:p.meaning}
     ];
   }
   function chooseExercise(value){if(!exerciseAnswered)setExerciseChoice(value);}
