@@ -136,6 +136,12 @@ function App(){
   const [learned,setLearned]=useState(()=>JSON.parse(localStorage.getItem('duomingo-learned')||'[]'));
   const [showLiteral,setShowLiteral]=useState(true);
   const [toast,setToast]=useState('');
+  const [exerciseIndex,setExerciseIndex]=useState(0);
+  const [exerciseChoice,setExerciseChoice]=useState(null);
+  const [exerciseAnswered,setExerciseAnswered]=useState(false);
+  const [mistakes,setMistakes]=useState([]);
+  const [lessonPhase,setLessonPhase]=useState('intro');
+  const [reviewIndex,setReviewIndex]=useState(0);
 
   useEffect(()=>localStorage.setItem('duomingo-xp',String(xp)),[xp]);
   useEffect(()=>localStorage.setItem('duomingo-completed',JSON.stringify(completed)),[completed]);
@@ -199,10 +205,36 @@ function App(){
   const courseLessons=lessons.filter(l=>(l.language||'fr')===language);
   const lesson=lessons.find(l=>l.id===lessonId);
   const phrase=lesson?.phrases[phraseIndex];
+  const currentExercises=lesson&&phrase?phraseExercises(phrase,lesson):[];
+  const currentExercise=currentExercises[exerciseIndex];
   const progress=Math.round((completed.length/lessons.length)*100);
   const totalPhrases=lessons.reduce((n,l)=>n+l.phrases.length,0);
 
-  function openLesson(id){setLessonId(id);setPhraseIndex(0);setTab('lesson');}
+  function openLesson(id){setLessonId(id);setPhraseIndex(0);setExerciseIndex(0);setExerciseChoice(null);setExerciseAnswered(false);setMistakes([]);setLessonPhase('intro');setReviewIndex(0);setTab('lesson');}
+  function phraseExercises(p, course){
+    const pool=course.phrases.filter(x=>x.fr!==p.fr);
+    const unique=values=>[...new Set(values.filter(Boolean))];
+    const words=p.fr.replace(/[!?.,¿¡]/g,'').split(' ').filter(Boolean);
+    const missing=words[0]||p.fr;
+    const shuffle=values=>unique(values).sort((a,b)=>a.localeCompare(b)).slice(0,4);
+    const meanings=pool.map(x=>x.meaning);
+    const phrases=pool.map(x=>x.fr);
+    const sounds=pool.map(x=>x.pron);
+    return [
+      {prompt:'What does this phrase mean?',display:p.fr,options:shuffle([p.meaning,...meanings,'Good morning.','Where is the station?']),answer:p.meaning,explain:p.note},
+      {prompt:'Find the missing word',display:p.fr.replace(missing,'_____'),options:shuffle([missing,...words.slice(1),...pool.map(x=>x.fr.split(' ')[0]),'bonjour','merci']),answer:missing,explain:'The complete phrase is: '+p.fr},
+      {prompt:'Translate this into the language you are learning',display:'“'+p.meaning+'”',options:shuffle([p.fr,...phrases,'Bonjour !','Merci beaucoup !']),answer:p.fr,explain:'The phrase is: '+p.fr},
+      {prompt:'Put the words in the correct order',display:'Build the phrase',options:words,answer:words.join(' '),explain:'Correct phrase: '+p.fr,order:true},
+      {prompt:'Choose the pronunciation',display:p.fr,options:shuffle([p.pron,...sounds,'bon-zhoor','mah-ree']),answer:p.pron,explain:'Pronunciation: '+p.pron},
+      {prompt:'What does this phrase communicate?',display:p.fr,options:shuffle([p.meaning,...meanings,'I would like a table.','See you tomorrow.']),answer:p.meaning,explain:p.literal+' → '+p.meaning},
+      {prompt:'Which description best fits this phrase?',display:p.fr,options:shuffle([p.note,'A polite greeting.','A request for directions.','An order at a café.']),answer:p.note,explain:p.meaning}
+    ];
+  }
+  function chooseExercise(value){if(!exerciseAnswered)setExerciseChoice(value);}
+  function checkExercise(){if(exerciseChoice===null)return;const q=currentExercises[exerciseIndex];if(exerciseChoice!==q.answer)setMistakes(v=>[...v,{question:q,chosen:exerciseChoice}]);else setXp(v=>v+2);setExerciseAnswered(true);}
+  function finishPhraseLesson(){if(!completed.includes(lesson.id))setCompleted(v=>[...v,lesson.id]);setXp(v=>v+20);setLessonId(null);setTab('learn');setLessonPhase('intro');setToast('Lesson complete! +20 XP');setTimeout(()=>setToast(''),2200);}
+  function advanceExercise(){if(exerciseIndex<currentExercises.length-1){setExerciseIndex(v=>v+1);setExerciseChoice(null);setExerciseAnswered(false);}else if(mistakes.length){setLessonPhase('review');setReviewIndex(0);setExerciseChoice(null);setExerciseAnswered(false);}else finishPhraseLesson();}
+  function finishReview(){setMistakes([]);finishPhraseLesson();}
   function markLearned(p){if(!learned.includes(p.fr)){setLearned(v=>[...v,p.fr]);setXp(v=>v+5);setToast(language==='fr'?'+5 XP. Votre français progresse !':language==='es'?'+5 XP. ¡Tu español mejora!':'+5 XP. Your English is improving!');setTimeout(()=>setToast(''),1800);}}
   function nextPhrase(){if(phraseIndex<lesson.phrases.length-1){setPhraseIndex(v=>v+1);}else{if(!completed.includes(lesson.id)){setCompleted(v=>[...v,lesson.id]);setXp(v=>v+20);}setLessonId(null);setTab('learn');setToast(language==='fr'?'Leçon terminée ! +20 XP':language==='es'?'¡Lección completada! +20 XP':'Lesson complete! +20 XP');setTimeout(()=>setToast(''),2200);}}
   function startQuiz(){setQuizIndex(0);setChoice(null);setAnswered(false);setQuizDone(false);setTab('quiz');}
@@ -228,14 +260,15 @@ function App(){
         <section className="daily"><div className="daily-icon">🧠</div><div><p className="eyebrow">DAILY REMINDER</p><h3>“La patience est une vertu.”</h3><p>Patience is a virtue. Shame we left ours on the bus.</p></div></section>
       </div>}
 
-      {tab==='lesson' && lesson && phrase && <section className="lesson-view">
+       {tab==='lesson' && lesson && phrase && <section className="lesson-view">
         <button className="back" onClick={()=>{setTab('learn');setLessonId(null)}}>← Back to lessons</button>
-        <div className="lesson-progress"><span>{lesson.emoji} {lesson.title}</span><span>{phraseIndex+1} / {lesson.phrases.length}</span></div>
-        <div className="mini-track"><div style={{width:((phraseIndex+1)/lesson.phrases.length*100)+'%'}}/></div>
-        <div className="phrase-card"><p className="eyebrow">SAY IT WITH FEELING</p><div className="phrase-emoji">{lesson.emoji}</div><h1>{phrase.fr}</h1><p className="pronunciation">🔊 {phrase.pron}</p><div className="translation"><div><span className="label">NATURAL MEANING</span><strong>{phrase.meaning}</strong></div><button className="text-button" onClick={()=>setShowLiteral(v=>!v)}>{showLiteral?'Hide':'Show'} literal translation</button>{showLiteral&&<div className="literal"><span className="label">WORD-FOR-WORD</span>{phrase.literal}</div>}</div><p className="note">💡 {phrase.note}</p><button className="primary full" onClick={()=>{markLearned(phrase);nextPhrase()}}>{phraseIndex===lesson.phrases.length-1?'Finish lesson':'Got it, next phrase'} <span>→</span></button></div>
+        <div className="lesson-progress"><span>{lesson.emoji} {lesson.title}</span><span>{lessonPhase==='intro'?'Phrase '+(phraseIndex+1)+' / '+lesson.phrases.length:lessonPhase==='review'?'Previous mistakes':'Practice '+(exerciseIndex+1)+' / '+currentExercises.length}</span></div>
+        <div className="mini-track"><div style={{width:(lessonPhase==='intro'?((phraseIndex)/lesson.phrases.length*100):lessonPhase==='review'?100:((exerciseIndex+1)/currentExercises.length*100))+'%'}}/></div>
+        {lessonPhase==='intro'&&<div className="phrase-card"><p className="eyebrow">MEET YOUR NEW PHRASE</p><div className="phrase-emoji">{lesson.emoji}</div><h1>{phrase.fr}</h1><p className="pronunciation">🔊 {phrase.pron}</p><div className="translation"><div><span className="label">NATURAL MEANING</span><strong>{phrase.meaning}</strong></div><button className="text-button" onClick={()=>setShowLiteral(v=>!v)}>{showLiteral?'Hide':'Show'} literal translation</button>{showLiteral&&<div className="literal"><span className="label">WORD-FOR-WORD</span>{phrase.literal}</div>}</div><p className="note">💡 {phrase.note}</p><button className="primary full" onClick={()=>{setLessonPhase('practice');setExerciseIndex(0);setExerciseChoice(null);setExerciseAnswered(false);}}>Practise this phrase <span>→</span></button></div>}
+        {lessonPhase==='practice'&&currentExercise&&<div className="question-card"><p className="eyebrow">PHRASE PRACTICE · {exerciseIndex+1} OF {currentExercises.length}</p><h2>{currentExercise.prompt}</h2><div className="exercise-prompt">{currentExercise.display}</div><div className="answers">{currentExercise.options.map((option,i)=><button key={option} className={'answer '+(exerciseChoice===option?'selected':'')+(exerciseAnswered&&option===currentExercise.answer?' correct':'')+(exerciseAnswered&&exerciseChoice===option&&exerciseChoice!==currentExercise.answer?' wrong':'')} onClick={()=>chooseExercise(option)}>{String.fromCharCode(65+i)}. {option}</button>)}</div>{exerciseAnswered&&<div className="feedback"><strong>{exerciseChoice===currentExercise.answer?'Correct! Très bien.':'Not quite. We’ll bring that one back.'}</strong><p>{currentExercise.explain}</p></div>}{!exerciseAnswered?<button className="primary full" disabled={exerciseChoice===null} onClick={checkExercise}>Check answer</button>:<button className="primary full" onClick={advanceExercise}>{exerciseIndex===currentExercises.length-1?(mistakes.length?'Review mistakes':'Finish phrase'):'Continue'} <span>→</span></button>}</div>}
+        {lessonPhase==='review'&&<div className="question-card"><p className="eyebrow">PREVIOUS MISTAKES · ROUND {reviewIndex+1} OF {mistakes.length}</p><h2>Let's have another go, with a little help.</h2><div className="exercise-prompt">{mistakes[reviewIndex].question.display}</div><p className="muted">This time, choose from a smaller set of answers.</p><div className="answers">{[mistakes[reviewIndex].question.answer,...mistakes[reviewIndex].question.options.filter(x=>x!==mistakes[reviewIndex].question.answer).slice(0,2)].sort((a,b)=>a.localeCompare(b)).map((option,i)=><button key={option} className={'answer '+(exerciseChoice===option?'selected':'')+(exerciseAnswered&&option===mistakes[reviewIndex].question.answer?' correct':'')+(exerciseAnswered&&exerciseChoice===option&&exerciseChoice!==mistakes[reviewIndex].question.answer?' wrong':'')} onClick={()=>chooseExercise(option)}>{String.fromCharCode(65+i)}. {option}</button>)}</div>{exerciseAnswered&&<div className="feedback"><strong>{exerciseChoice===mistakes[reviewIndex].question.answer?'Recovered! Nice work.':'Still tricky. The correct answer is highlighted.'}</strong><p>{mistakes[reviewIndex].question.explain}</p></div>}{!exerciseAnswered?<button className="primary full" disabled={exerciseChoice===null} onClick={()=>setExerciseAnswered(true)}>Check answer</button>:<button className="primary full" onClick={()=>{if(reviewIndex<mistakes.length-1){setReviewIndex(v=>v+1);setExerciseChoice(null);setExerciseAnswered(false);}else finishReview();}}>{reviewIndex===mistakes.length-1?'Finish review':'Next mistake'} <span>→</span></button>}</div>}
       </section>}
-
-      {tab==='quiz' && <section className="quiz-view">
+{tab==='quiz' && <section className="quiz-view">
         <button className="back" onClick={()=>setTab('learn')}>← Back to lessons</button>
         {!quizDone?<><div className="quiz-heading"><p className="eyebrow">THE PATIENCE EXAM</p><h1>Prove you've been<br/><em>paying attention.</em></h1><div className="mini-track"><div style={{width:((quizIndex+1)/questions.length*100)+'%'}}/></div><p className="muted">Question {quizIndex+1} of {questions.length}</p></div><div className="question-card"><h2>{questions[quizIndex].q}</h2><div className="answers">{questions[quizIndex].a.map((a,i)=><button key={a} className={'answer '+(choice===i?'selected':'')+(answered&&i===questions[quizIndex].correct?' correct':'')+(answered&&choice===i&&i!==questions[quizIndex].correct?' wrong':'')} onClick={()=>!answered&&setChoice(i)}>{String.fromCharCode(65+i)}. {a}</button>)}</div>{answered?<div className="feedback"><strong>{choice===questions[quizIndex].correct?'Très bien !':'Pas tout à fait !'}</strong><p>{questions[quizIndex].why}</p><button className="primary full" onClick={nextQuestion}>{quizIndex===questions.length-1?'See results':'Next question →'}</button></div>:<button className="primary full" disabled={choice===null} onClick={submitAnswer}>Check answer</button>}</div></>:<div className="result-card"><div className="result-emoji">🏆</div><p className="eyebrow">EXAMINÉ ET LÉGÈREMENT DANGEREUX</p><h1>Well played,<br/><em>Pascal.</em></h1><p>You survived the patience exam. Your language skills are improving. Your manners are another matter.</p><button className="primary full" onClick={()=>{resetQuiz();setTab('learn')}}>Back to learning</button></div>}
       </section>}
