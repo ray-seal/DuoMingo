@@ -1,0 +1,20 @@
+{
+  "id": "/",
+  "name": "DuoMingo",
+  "short_name": "DuoMingo",
+  "description": "Languages for the thoroughly fed up. Learn the words. You deal with the aftermath.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fff9ed",
+  "theme_color": "#fff1e8",
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
