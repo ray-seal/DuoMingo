@@ -280,6 +280,19 @@ function App(){
     {accountOpen&&<div className="modal-backdrop" onClick={()=>setAccountOpen(false)}><section className="account-modal" onClick={e=>e.stopPropagation()}><button className="modal-close" onClick={()=>setAccountOpen(false)}>×</button><p className="eyebrow">YOUR PERSONAL LANGUAGE MENACE PROFILE</p><h2>{session?'Account synced. Excellent.':'Save your progress'}</h2>{session?<><p className="muted">{session.user?.email}</p><p className="sync-status">{syncStatus}</p><button className="primary full" onClick={handleSignOut}>Sign out</button></>:<><p className="muted">Carry your XP, lessons and phrasebook between devices.</p><form onSubmit={handleAuthSubmit} className="auth-form">{authMode==='signup'&&<input value={authName} onChange={e=>setAuthName(e.target.value)} placeholder="Display name" autoComplete="name"/>}<input type="email" required value={authEmail} onChange={e=>setAuthEmail(e.target.value)} placeholder="Email address" autoComplete="email"/><input type="password" required minLength="8" value={authPassword} onChange={e=>setAuthPassword(e.target.value)} placeholder="Password (8+ characters)" autoComplete={authMode==='signup'?'new-password':'current-password'}/>{authError&&<p className="auth-error">{authError}</p>}<button className="primary full" disabled={authBusy}>{authBusy?'One moment…':authMode==='signup'?'Create account':'Sign in'}</button></form><button className="text-button mode-toggle" onClick={()=>{setAuthMode(v=>v==='signup'?'signin':'signup');setAuthError('')}}>{authMode==='signup'?'Already have an account? Sign in':'New here? Create an account'}</button><p className="sync-status">{syncStatus}</p></>}</section></div>}
 
     {toast&&<div className="toast">{toast}</div>}
+    <aside className="legal-disclaimer" aria-label="DuoMingo legal disclaimer">
+      <h2>⚠️ DuoMingo Legal Disclaimer</h2>
+      <p>All translations are provided for educational and entertainment purposes. While we endeavour to ensure linguistic accuracy, we accept absolutely no responsibility for:</p>
+      <ul>
+        <li>Facial expressions becoming increasingly hostile.</li>
+        <li>Unscheduled diplomatic incidents.</li>
+        <li>Being introduced to someone's fist at close range.</li>
+        <li>The sudden withdrawal of baguette-related services.</li>
+        <li>Discovering that the person you've insulted is, in fact, considerably larger than you.</li>
+      </ul>
+      <p>Please use your new vocabulary responsibly. Or at least understand the consequences before deployment.</p>
+      <p className="disclaimer-signoff">DuoMingo: Languages for the thoroughly fed up. We teach the words. You deal with the aftermath.</p>
+    </aside>
     <footer>DUOMINGO · LEARN TO SAY ABSOLUTELY ANYTHING · MADE WITH QUESTIONABLE INTENT 🌍</footer>
   </div>
 }
