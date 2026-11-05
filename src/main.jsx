@@ -46,6 +46,41 @@ const lessons = [
     {fr:'Ça fait chier.',pron:'sah feh shee-ay',literal:'That makes shit.',meaning:'That’s fucking annoying.',note:'Vulgar and everyday. The phrase describes something irritating, not necessarily a person.'},
     {fr:'C’est chiant.',pron:'say shee-ahn',literal:'It is shitting.',meaning:'It’s a pain in the arse / It’s boring.',note:'Informal and mildly vulgar. A useful everyday complaint.'}
   ]},
+  {id:'french-fedup',language:'fr',title:'Pour les gens à bout',subtitle:'Useful phrases for the thoroughly fed up',level:'Survival',emoji:'😤',phrases:[
+    {fr:'J’en ai ras le bol !',pron:'zhahn ay rah luh bol',literal:'I have a bowl full of it.',meaning:'I’ve had absolutely enough!',note:'Very common informal French. Stronger and more emphatic than j’en ai marre.'},
+    {fr:'Lâche-moi les baskets !',pron:'lash mwah lay bas-ket',literal:'Let go of my trainers!',meaning:'Get off my back!',note:'A familiar informal expression meaning stop bothering me. Nothing to do with actual footwear.'},
+    {fr:'Fiche-moi la paix !',pron:'feesh mwah lah peh',literal:'Give me peace!',meaning:'Leave me alone!',note:'Informal and forceful, but milder than fous-moi la paix.'},
+    {fr:'J’en peux plus !',pron:'zhahn puh plew',literal:'I can no more.',meaning:'I can’t take any more!',note:'Extremely common spoken French for exhaustion, frustration or general human overload.'},
+    {fr:'Ça commence sérieusement à me gonfler.',pron:'sah koh-mahns say-ree-uhz-mahn ah muh gon-flay',literal:'That is seriously starting to inflate me.',meaning:'This is seriously starting to piss me off.',note:'Informal and mildly vulgar. Gonfler quelqu’un means to annoy or get on their nerves.'}
+  ]},
+  {id:'french-insults',language:'fr',title:'Les insultes du quotidien',subtitle:'A practical guide to calling out absolute nonsense',level:'Spicy',emoji:'🌶️',phrases:[
+    {fr:'Quel connard !',pron:'kell koh-nar',literal:'What an arsehole!',meaning:'What a fucking idiot / What an arsehole!',note:'Very vulgar and direct. Connard is commonly aimed at a man; connasse is the feminine form.'},
+    {fr:'Espèce d’abruti !',pron:'ess-pess dah-brew-tee',literal:'Species of imbecile!',meaning:'You absolute idiot!',note:'A natural, common insult. Abruti suggests someone is being incredibly stupid.'},
+    {fr:'T’as rien dans le crâne !',pron:'tah ree-ehn dahn luh kran',literal:'You have nothing in the skull!',meaning:'There’s nothing going on in your head!',note:'Informal spoken French. T’as is the contraction of tu as.'},
+    {fr:'Casse-toi !',pron:'kass twah',literal:'Break yourself!',meaning:'Get lost! / Fuck off!',note:'Blunt and rude. Cassez-vous is the plural or formal form.'},
+    {fr:'Va te faire voir !',pron:'vah tuh fair vwar',literal:'Go get yourself seen!',meaning:'Get lost! / Go to hell!',note:'Dismissive, but less explicit than va te faire foutre.'}
+  ]},
+  {id:'french-feral',language:'fr',title:'Le mode sauvage',subtitle:'For when polite society has left the premises',level:'Feral',emoji:'🦝',phrases:[
+    {fr:'Tu te fous de ma gueule ?',pron:'tew tuh foo duh mah guhl',literal:'Are you making fun of my face?',meaning:'Are you taking the piss out of me?',note:'Very informal and vulgar. Used when someone seems to be taking liberties or talking nonsense.'},
+    {fr:'C’est pas bientôt fini, ce bordel ?',pron:'say pah byan-toh fee-nee suh bor-del',literal:'Is this mess not going to finish soon?',meaning:'Are you going to pack this bloody nonsense in?',note:'Very colloquial. Dropping ne is normal in everyday spoken French.'},
+    {fr:'Mais t’es complètement malade !',pron:'may tay kom-plet-mahn mah-lad',literal:'But you are completely ill!',meaning:'You’re absolutely bloody mad!',note:'Informal and emphatic, often used in disbelief rather than literally.'},
+    {fr:'Faut arrêter les conneries !',pron:'foh ah-ray-tay lay kon-ree',literal:'It is necessary to stop the stupidities!',meaning:'Stop this fucking nonsense!',note:'Very colloquial and vulgar. Faut is a spoken contraction of il faut.'},
+    {fr:'Tu me prends pour un jambon ?',pron:'tew muh prahn poor uhn zhahm-bohn',literal:'Are you taking me for a ham?',meaning:'Do you think I’m an idiot? / Are you trying to fool me?',note:'A genuine French expression. Être pris pour un jambon means being treated like a fool.'}
+  ]},
+  {id:'french-sarcastic',language:'fr',title:'Le sarcasme à la française',subtitle:'A raised eyebrow can do most of the work',level:'Advanced',emoji:'🙄',phrases:[
+    {fr:'C’est pas le couteau le plus aiguisé du tiroir.',pron:'say pah luh koo-toh luh plew ay-gwee-zay dew tee-rwar',literal:'It is not the sharpest knife in the drawer.',meaning:'Not the sharpest tool in the box.',note:'A familiar French equivalent. Usually teasing or insulting, depending on delivery.'},
+    {fr:'On n’est pas sortis de l’auberge !',pron:'ohn nay pah sor-tee duh loh-berzh',literal:'We have not left the inn!',meaning:'We’re not out of the woods yet!',note:'A genuine idiom used when a problem is far from solved.'},
+    {fr:'Quelle délicatesse !',pron:'kell day-lee-kah-tess',literal:'What delicacy!',meaning:'How tactless! / Well, that was subtle!',note:'The words sound complimentary. Tone can make the meaning entirely different.'},
+    {fr:'C’est d’une intelligence rare.',pron:'say dew-nehn-tel-ee-zhahns rahr',literal:'That is of a rare intelligence.',meaning:'That’s a spectacularly stupid thing to do.',note:'A sarcastic construction. The delivery tells the listener that rare does not mean impressive.'},
+    {fr:'Bravo, quelle performance...',pron:'brah-voh kell pair-for-mahns',literal:'Well done, what a performance...',meaning:'Well done. That was a spectacular disaster.',note:'Can be sincere, but with a pause and raised eyebrow it becomes dry sarcasm.'}
+  ]},
+  {id:'french-boundaries',language:'fr',title:'Les limites sont posées',subtitle:'Useful ways to say no, stop and absolutely not',level:'Essential',emoji:'🛑',phrases:[
+    {fr:'Ça suffit. Arrête maintenant.',pron:'sah swee-fee ah-ret man-tuh-nahn',literal:'That is enough. Stop now.',meaning:'That’s enough. Stop it now.',note:'Clear and firm. Useful when you need someone to stop immediately.'},
+    {fr:'Ne me parle pas sur ce ton.',pron:'nuh muh parl pah sewr suh tohn',literal:'Do not speak to me in that tone.',meaning:'Don’t speak to me like that.',note:'A direct boundary. Keeping ne makes the phrase sound firmer.'},
+    {fr:'Je ne suis pas d’accord.',pron:'zhuh nuh swee pah dah-kor',literal:'I am not of agreement.',meaning:'I don’t agree.',note:'A useful, neutral disagreement. You can be firm without swearing.'},
+    {fr:'Occupe-toi de tes affaires.',pron:'oh-kewp twah duh tay zah-fair',literal:'Occupy yourself with your business.',meaning:'Mind your own business.',note:'Direct and dismissive. The vous form is occupez-vous de vos affaires.'},
+    {fr:'Laisse tomber. Ça n’en vaut pas la peine.',pron:'less tom-bay sah nahn voh pah lah pen',literal:'Let it fall. It is not worth the trouble.',meaning:'Forget it. It isn’t worth the effort.',note:'A useful way to disengage from an argument going nowhere.'}
+  ]},
   { id:'british', title:'The British insult translator', subtitle:'For muppets, pillocks and weapons-grade plonkers', level:'Cultural exchange', emoji:'🫖', phrases:[
     {fr:'Espèce d’abruti !',pron:'ess-pess dah-brew-tee',literal:'Species of imbecile!',meaning:'You absolute idiot / You muppet!',note:'A natural French insult for someone behaving foolishly. Not a word-for-word translation of muppet.'},
     {fr:'Quel crétin !',pron:'kell cray-tan',literal:'What a cretin!',meaning:'What a prat!',note:'A recognisable insult, less explosive than the strongest options.'},
@@ -249,8 +284,8 @@ function App(){
   const phrase=lesson?.phrases[phraseIndex];
   const currentExercises=lesson&&phrase?phraseExercises(phrase,lesson):[];
   const currentExercise=currentExercises[exerciseIndex];
-  const progress=Math.round((completed.length/lessons.length)*100);
-  const totalPhrases=lessons.reduce((n,l)=>n+l.phrases.length,0);
+  const progress=Math.round((completed.filter(id=>courseLessons.some(l=>l.id===id)).length/Math.max(1,courseLessons.length))*100);
+  const totalPhrases=courseLessons.reduce((n,l)=>n+l.phrases.length,0);
 
   function openLesson(id){setLessonId(id);setPhraseIndex(0);setExerciseIndex(0);setExerciseChoice(null);setExerciseAnswered(false);setMistakes([]);setLessonPhase('intro');setReviewIndex(0);setTab('lesson');}
   function phraseExercises(p, course){
@@ -297,7 +332,7 @@ function App(){
           <div className="hero-art"><div className="sun"></div><div className="speech">FOUTEZ-MOI<br/>LA PAIX !</div><div className="flamingo">🦩</div><div className="coffee">☕</div></div>
         </section>
         <section className="progress-card"><div className="progress-head"><div><p className="eyebrow">YOUR INTERNATIONAL REVOLUTION</p><h2>Course progress</h2></div><strong>{progress}%</strong></div><div className="progress-track"><div style={{width:progress+'%'}}/></div><p className="muted">{completed.length} of {lessons.length} lessons completed · {learned.length} of {totalPhrases} phrases collected</p></section>
-        <div className="section-heading"><div><p className="eyebrow">THE CURRICULUM</p><h2>Choose your level of outrage</h2></div><select className="language-select" value={language} onChange={e=>setLanguage(e.target.value)}><option value="fr">🇫🇷 French</option><option value="en">🇬🇧 British English</option><option value="es">🇪🇸 Spanish</option><option value="de">🇩🇪 German</option></select></div>
+        <div className="section-heading"><div><p className="eyebrow">THE CURRICULUM</p><h2>Choose your level of outrage</h2></div><select className="language-select" value={language} onChange={e=>setLanguage(e.target.value)}><option value="fr">🇫🇷 French</option><option value="en">🇬🇧 British English</option></select></div>
         <div className="lesson-grid">{courseLessons.map((l,i)=><button className={'lesson-card '+(completed.includes(l.id)?'done':'')} key={l.id} onClick={()=>openLesson(l.id)}><div className="lesson-top"><span className="lesson-emoji">{l.emoji}</span><span className="level">{l.level}</span></div><h3>{String(i+1).padStart(2,'0')} · {l.title}</h3><p>{l.subtitle}</p><div className="lesson-bottom"><span>{l.phrases.length} phrases</span><span>{completed.includes(l.id)?'✓ Completed':'Start lesson →'}</span></div></button>)}</div>
         <section className="daily"><div className="daily-icon">🧠</div><div><p className="eyebrow">DAILY REMINDER</p><h3>“La patience est une vertu.”</h3><p>Patience is a virtue. Shame we left ours on the bus.</p></div></section>
       </div>}
