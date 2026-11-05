@@ -8,7 +8,7 @@ async function authenticate(req) {
   if (!token || !process.env.NEON_AUTH_JWKS_URL) return null;
   try {
     jwks ||= createRemoteJWKSet(new URL(process.env.NEON_AUTH_JWKS_URL));
-    const { payload } = await jwtVerify(token, jwks);
+    const { payload } = await jwtVerify(token, jwks, { issuer: process.env.NEON_AUTH_ISSUER });
     return typeof payload.sub === "string" ? payload.sub : null;
   } catch { return null; }
 }
