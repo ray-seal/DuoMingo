@@ -224,7 +224,7 @@ function App(){
       {prompt:'What does this phrase mean?',display:p.fr,options:shuffle([p.meaning,...meanings,'Good morning.','Where is the station?']),answer:p.meaning,explain:p.note},
       {prompt:'Find the missing word',display:p.fr.replace(missing,'_____'),options:shuffle([missing,...words.slice(1),...pool.map(x=>x.fr.split(' ')[0]),'bonjour','merci']),answer:missing,explain:'The complete phrase is: '+p.fr},
       {prompt:'Translate this into the language you are learning',display:'“'+p.meaning+'”',options:shuffle([p.fr,...phrases,'Bonjour !','Merci beaucoup !']),answer:p.fr,explain:'The phrase is: '+p.fr},
-      {prompt:'Put the words in the correct order',display:'Build the phrase',options:words,answer:words.join(' '),explain:'Correct phrase: '+p.fr,order:true},
+      {prompt:'Which word order makes the correct phrase?',display:'Build the phrase: '+p.meaning,options:shuffle([p.fr,...phrases,'Bonjour !','Merci beaucoup !']),answer:p.fr,explain:'Correct phrase: '+p.fr},
       {prompt:'Choose the pronunciation',display:p.fr,options:shuffle([p.pron,...sounds,'bon-zhoor','mah-ree']),answer:p.pron,explain:'Pronunciation: '+p.pron},
       {prompt:'What does this phrase communicate?',display:p.fr,options:shuffle([p.meaning,...meanings,'I would like a table.','See you tomorrow.']),answer:p.meaning,explain:p.literal+' → '+p.meaning},
       {prompt:'Which description best fits this phrase?',display:p.fr,options:shuffle([p.note,'A polite greeting.','A request for directions.','An order at a café.']),answer:p.note,explain:p.meaning}
