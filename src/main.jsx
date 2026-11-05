@@ -37,6 +37,29 @@ const lessons = [
     {fr:'Ne me parle pas avant que j\'aie fini mon joint.',pron:'nuh muh parl pah ah-vahn kuh zhay fee-nee mon zhwan',literal:'Do not speak to me before I have finished my joint.',meaning:'Don\'t talk to me until I have finished my joint.',note:'Direct and colloquial. Avant que takes the subjunctive here: j\'aie fini. A very clear boundary, delivered with maximum calm.'},
     {fr:'Je décompresse. On verra ça demain.',pron:'zhuh day-kom-press. on veh-rah sah duh-man',literal:'I am decompressing. We will see that tomorrow.',meaning:'I am unwinding. We can deal with that tomorrow.',note:'A useful way to declare the working day officially deceased.'}
   ]}
+  ,{ id:'swearing', title:'Swearing: the essentials', subtitle:'Five little words with enormous emotional range', level:'Foundations', emoji:'🤬', phrases:[
+    {fr:'Merde !',pron:'mehrd',literal:'Shit!',meaning:'Shit! / Damn it!',note:'Common, versatile and vulgar. Often an exclamation of frustration rather than an insult.'},
+    {fr:'Putain !',pron:'pew-tan',literal:'Whore!',meaning:'Fuck! / Bloody hell!',note:'Extremely common in informal speech, but literally a very offensive word. Context and tone matter.'},
+    {fr:'Bordel !',pron:'bor-del',literal:'Brothel!',meaning:'For fuck’s sake! / What a bloody mess!',note:'A punchy exclamation. Also used in expressions like quel bordel ! for what a mess.'},
+    {fr:'Ça fait chier.',pron:'sah feh shee-ay',literal:'That makes shit.',meaning:'That’s fucking annoying.',note:'Vulgar and everyday. The phrase describes something irritating, not necessarily a person.'},
+    {fr:'C’est chiant.',pron:'say shee-ahn',literal:'It is shitting.',meaning:'It’s a pain in the arse / It’s boring.',note:'Informal and mildly vulgar. A useful everyday complaint.'}
+  ]},
+  { id:'british', title:'The British insult translator', subtitle:'For muppets, pillocks and weapons-grade plonkers', level:'Cultural exchange', emoji:'🫖', phrases:[
+    {fr:'Espèce d’abruti !',pron:'ess-pess dah-brew-tee',literal:'Species of imbecile!',meaning:'You absolute idiot / You muppet!',note:'A natural French insult for someone behaving foolishly. Not a word-for-word translation of muppet.'},
+    {fr:'Quel crétin !',pron:'kell cray-tan',literal:'What a cretin!',meaning:'What a prat!',note:'A recognisable insult, less explosive than the strongest options.'},
+    {fr:'Gros con !',pron:'groh kon',literal:'Big idiot!',meaning:'You massive arsehole!',note:'Very rude. Con is a strong everyday insult in France. Do not mistake its shortness for politeness.'},
+    {fr:'Tête de nœud !',pron:'tet duh nuh',literal:'Knot head!',meaning:'You knobhead!',note:'A colourful insult with a similar comic feel. Still rude, but often less severe than gros con.'},
+    {fr:'Quel boulet !',pron:'kell boo-lay',literal:'What a cannonball!',meaning:'What a liability / What a muppet!',note:'Boulet is often used for someone who is a burden or keeps making things difficult.'},
+    {fr:'Pauvre type !',pron:'povr teep',literal:'Poor type!',meaning:'What a sad loser.',note:'Dismissive and contemptuous. The tone does a lot of the work.'}
+  ]},
+  { id:'workplace', title:'Office diplomacy for the furious', subtitle:'Professional wording. Unprofessional thoughts.', level:'Survival', emoji:'💼', phrases:[
+    {fr:'Je vais prendre quelques minutes pour y réfléchir.',pron:'zhuh veh prahndr kell-kuh mee-newt poor ee ray-flay-sheer',literal:'I will take a few minutes to think about it.',meaning:'I need a moment before I respond.',note:'Perfectly professional. Also buys you time not to say what you are thinking.'},
+    {fr:'Ce n’est pas exactement ce que j’avais demandé.',pron:'suh nay pah eg-zakt-mahn suh kuh zhah-vay duh-mahn-day',literal:'That is not exactly what I had asked.',meaning:'That is absolutely not what I asked for.',note:'Polite correction with a very clear message.'},
+    {fr:'Je préfère que nous en restions là.',pron:'zhuh pray-fair kuh noo zahn ress-tyohn lah',literal:'I prefer that we stay there.',meaning:'I think we should leave it there.',note:'A calm way to end a conversation that is going nowhere.'},
+    {fr:'Merci pour cette contribution… intéressante.',pron:'mehr-see poor set kon-tree-bew-syohn an-tay-ray-sahnt',literal:'Thank you for this… interesting contribution.',meaning:'Thank you for that… interesting input.',note:'The pause is essential. Deploy only when you can maintain a straight face.'},
+    {fr:'Nous n’avons manifestement pas la même définition de “urgent”.',pron:'noo nah-von mah-nee-fest-mahn pah lah mem day-fee-nee-syohn duh ewhr-zhahn',literal:'We evidently do not have the same definition of “urgent”.',meaning:'Your emergency is not my emergency.',note:'A longer, more diplomatic way to establish priorities and boundaries.'}
+  ]}
+
 ];
 
 const questions = [
