@@ -2,7 +2,7 @@
   "name": "DuoMingo",
   "short_name": "DuoMingo",
   "description": "French for the thoroughly fed up.",
-  "start_url": "/",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#fff9ed",
   "theme_color": "#fff9ed",
