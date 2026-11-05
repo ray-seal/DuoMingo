@@ -62,6 +62,28 @@ const lessons = [
     {fr:'Nous n’avons manifestement pas la même définition de “urgent”.',pron:'noo nah-von mah-nee-fest-mahn pah lah mem day-fee-nee-syohn duh ewhr-zhahn',literal:'We evidently do not have the same definition of “urgent”.',meaning:'Your emergency is not my emergency.',note:'A longer, more diplomatic way to establish priorities and boundaries.'}
   ]}
 
+  ,{id:'british-basics',language:'en',title:'British insults: the foundations',subtitle:'A masterclass in beautifully unnecessary vocabulary',level:'Home turf',emoji:'🫖',phrases:[
+    {fr:'You absolute muppet.',pron:'yoo ab-suh-loot mup-it',literal:'You are a complete puppet.',meaning:'You absolute idiot.',note:'Muppet is a familiar British insult. Often comic rather than genuinely hostile.'},
+    {fr:'You daft pillock.',pron:'yoo daft pil-ock',literal:'You foolish person.',meaning:'You silly idiot.',note:'Pillock is distinctly British and rude, but usually not the nuclear option.'},
+    {fr:'What a complete plonker.',pron:'wot uh kum-pleet plonk-er',literal:'What a complete fool.',meaning:'What an absolute idiot.',note:'Plonker is mild-to-medium British insult territory. Best delivered with disappointment.'},
+    {fr:'You absolute weapon.',pron:'yoo ab-suh-loot wep-un',literal:'You are an actual weapon.',meaning:'You are spectacularly stupid or chaotic.',note:'Modern British slang. Context can make it affectionate or properly cutting.'},
+    {fr:'Could you be any more of a prat?',pron:'kood yoo bee en-ee mor uhv uh prat',literal:'Could you be more foolish?',meaning:'You are being a complete idiot.',note:'Prat is rude but fairly everyday. The question format adds theatrical disbelief.'}
+  ]},
+  {id:'british-poetry',language:'en',title:'Weapons-grade British insults',subtitle:'An advanced qualification in verbal craftsmanship',level:'Highly unnecessary',emoji:'🎓',phrases:[
+    {fr:'You absolute walnut.',pron:'yoo ab-suh-loot wall-nut',literal:'You are a walnut.',meaning:'You utter idiot.',note:'A harmless, absurd insult. The sillier the noun, the more comic the effect.'},
+    {fr:'You rancid little turnip.',pron:'yoo ran-sid lit-ul turn-ip',literal:'You unpleasant small root vegetable.',meaning:'You deeply irritating fool.',note:'Invented insult. Not a fixed expression, just vegetable-based disappointment.'},
+    {fr:'Your brain has the structural integrity of wet cardboard.',pron:'yor brayn haz thuh struk-chuh-rul in-teg-ri-tee uhv wet kard-bord',literal:'Your thinking organ is poorly constructed.',meaning:'That was spectacularly stupid.',note:'A long-form insult for when a simple idiot simply will not do.'},
+    {fr:'You magnificent spanner.',pron:'yoo mag-nif-ih-sent span-er',literal:'You impressive tool.',meaning:'You glorious fool.',note:'Spanner is British slang for an idiot. Magnificent makes it oddly affectionate.'}
+  ]},
+  {id:'spanish-survival',language:'es',title:'Spanish survival swearing',subtitle:'A tiny starter kit for a very long day',level:'Starter',emoji:'🌶️',phrases:[
+    {fr:'¡Mierda!',pron:'myer-dah',literal:'Shit!',meaning:'Shit! / Damn it!',note:'Common vulgar exclamation. Used for frustration, surprise or a mistake.'},
+    {fr:'¡Joder!',pron:'ho-der',literal:'To fuck!',meaning:'Fuck! / For fuck’s sake!',note:'Very common in Spain and strongly informal. Intensity depends on tone and context.'},
+    {fr:'Estoy hasta las narices.',pron:'es-toy as-tah las nah-ree-ses',literal:'I am up to the nostrils.',meaning:'I am absolutely fed up.',note:'A familiar Spanish expression for having had enough.'},
+    {fr:'Déjame en paz.',pron:'deh-hah-meh en pahs',literal:'Leave me in peace.',meaning:'Leave me alone.',note:'Useful and direct. The peaceful option before the vocabulary gets spicy.'},
+    {fr:'Una cerveza, por favor.',pron:'oo-nah ser-veh-sah por fah-vor',literal:'A beer, please.',meaning:'A beer, please.',note:'Priorities. In Spain, cerveza is beer. You can ask for una caña for a small draught beer.'}
+  ]}
+
+
 ];
 
 const questions = [
@@ -77,6 +99,7 @@ const questions = [
 
 function App(){
   const [tab,setTab]=useState('learn');
+  const [language,setLanguage]=useState('fr');
   const [session,setSession]=useState(null);
   const [accountOpen,setAccountOpen]=useState(false);
   const [authMode,setAuthMode]=useState('signin');
@@ -157,6 +180,7 @@ function App(){
   }
   async function handleSignOut(){await authClient?.signOut();setSession(null);setSyncStatus('Saved on this device');}
 
+  const courseLessons=lessons.filter(l=>(l.language||'fr')===language);
   const lesson=lessons.find(l=>l.id===lessonId);
   const phrase=lesson?.phrases[phraseIndex];
   const progress=Math.round((completed.length/lessons.length)*100);
@@ -179,12 +203,12 @@ function App(){
     <main>
       {tab==='learn' && <div className="layout">
         <section className="welcome">
-          <div><p className="eyebrow">BONJOUR, TROUBLE</p><h1>Learn French.<br/><em>Lose your patience</em><br/>in style.</h1><p className="intro">The language course for people who have already tried being polite.</p><button className="primary" onClick={()=>openLesson(lessons.find(l=>!completed.includes(l.id))?.id||lessons[0].id)}>Continue learning <span>→</span></button></div>
+          <div><p className="eyebrow">BONJOUR, TROUBLE</p><h1>Learn French.<br/><em>Lose your patience</em><br/>in style.</h1><p className="intro">The language course for people who have already tried being polite.</p><button className="primary" onClick={()=>openLesson(courseLessons.find(l=>!completed.includes(l.id))?.id||courseLessons[0].id)}>Continue learning <span>→</span></button></div>
           <div className="hero-art"><div className="sun"></div><div className="speech">FOUTEZ-MOI<br/>LA PAIX !</div><div className="flamingo">🦩</div><div className="coffee">☕</div></div>
         </section>
         <section className="progress-card"><div className="progress-head"><div><p className="eyebrow">YOUR FRENCH REVOLUTION</p><h2>Course progress</h2></div><strong>{progress}%</strong></div><div className="progress-track"><div style={{width:progress+'%'}}/></div><p className="muted">{completed.length} of {lessons.length} lessons completed · {learned.length} of {totalPhrases} phrases collected</p></section>
-        <div className="section-heading"><div><p className="eyebrow">THE CURRICULUM</p><h2>Choose your level of outrage</h2></div><span className="tiny-stamp">100% educational-ish</span></div>
-        <div className="lesson-grid">{lessons.map((l,i)=><button className={'lesson-card '+(completed.includes(l.id)?'done':'')} key={l.id} onClick={()=>openLesson(l.id)}><div className="lesson-top"><span className="lesson-emoji">{l.emoji}</span><span className="level">{l.level}</span></div><h3>{String(i+1).padStart(2,'0')} · {l.title}</h3><p>{l.subtitle}</p><div className="lesson-bottom"><span>{l.phrases.length} phrases</span><span>{completed.includes(l.id)?'✓ Completed':'Start lesson →'}</span></div></button>)}</div>
+        <div className="section-heading"><div><p className="eyebrow">THE CURRICULUM</p><h2>Choose your level of outrage</h2></div><select className="language-select" value={language} onChange={e=>setLanguage(e.target.value)}><option value="fr">🇫🇷 French</option><option value="en">🇬🇧 British English</option><option value="es">🇪🇸 Spanish</option></select></div>
+        <div className="lesson-grid">{courseLessons.map((l,i)=><button className={'lesson-card '+(completed.includes(l.id)?'done':'')} key={l.id} onClick={()=>openLesson(l.id)}><div className="lesson-top"><span className="lesson-emoji">{l.emoji}</span><span className="level">{l.level}</span></div><h3>{String(i+1).padStart(2,'0')} · {l.title}</h3><p>{l.subtitle}</p><div className="lesson-bottom"><span>{l.phrases.length} phrases</span><span>{completed.includes(l.id)?'✓ Completed':'Start lesson →'}</span></div></button>)}</div>
         <section className="daily"><div className="daily-icon">🧠</div><div><p className="eyebrow">DAILY REMINDER</p><h3>“La patience est une vertu.”</h3><p>Patience is a virtue. Shame we left ours on the bus.</p></div></section>
       </div>}
 
