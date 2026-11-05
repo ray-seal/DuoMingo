@@ -232,7 +232,7 @@ function App(){
   }
   function chooseExercise(value){if(!exerciseAnswered)setExerciseChoice(value);}
   function checkExercise(){if(exerciseChoice===null)return;const q=currentExercises[exerciseIndex];if(exerciseChoice!==q.answer)setMistakes(v=>[...v,{question:q,chosen:exerciseChoice}]);else setXp(v=>v+2);setExerciseAnswered(true);}
-  function finishPhraseLesson(){if(!completed.includes(lesson.id))setCompleted(v=>[...v,lesson.id]);setXp(v=>v+20);setLessonId(null);setTab('learn');setLessonPhase('intro');setToast('Lesson complete! +20 XP');setTimeout(()=>setToast(''),2200);}
+  function finishPhraseLesson(){if(phraseIndex<lesson.phrases.length-1){setPhraseIndex(v=>v+1);setLessonPhase('intro');setExerciseIndex(0);setExerciseChoice(null);setExerciseAnswered(false);setMistakes([]);setReviewIndex(0);return;}if(!completed.includes(lesson.id))setCompleted(v=>[...v,lesson.id]);setXp(v=>v+20);setLessonId(null);setTab('learn');setLessonPhase('intro');setToast('Lesson complete! +20 XP');setTimeout(()=>setToast(''),2200);}
   function advanceExercise(){if(exerciseIndex<currentExercises.length-1){setExerciseIndex(v=>v+1);setExerciseChoice(null);setExerciseAnswered(false);}else if(mistakes.length){setLessonPhase('review');setReviewIndex(0);setExerciseChoice(null);setExerciseAnswered(false);}else finishPhraseLesson();}
   function finishReview(){setMistakes([]);finishPhraseLesson();}
   function markLearned(p){if(!learned.includes(p.fr)){setLearned(v=>[...v,p.fr]);setXp(v=>v+5);setToast(language==='fr'?'+5 XP. Votre français progresse !':language==='es'?'+5 XP. ¡Tu español mejora!':'+5 XP. Your English is improving!');setTimeout(()=>setToast(''),1800);}}
