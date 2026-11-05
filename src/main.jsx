@@ -22,6 +22,20 @@ const lessons = [
     {fr:'Va t\'asseoir sur un cactus !',pron:'vah tah-swahr sewr uhn kak-tews',literal:'Go sit on a cactus!',meaning:'Go squat on a cactus!',note:'Understandable and gloriously silly. Not a standard French idiom.'},
     {fr:'Va manger un sac de merde !',pron:'vah mahn-zhay uhn sak duh mehrd',literal:'Go eat a bag of shit!',meaning:'Go eat a bag of shit!',note:'A deliberately ridiculous insult, not a fixed traditional expression.'},
     {fr:'J\'espère que ta prochaine merde sera un ananas.',pron:'zheh-spehr kuh tah proh-shen mehrd suh-rah uhn ah-nah-nahs',literal:'I hope your next turd will be a pineapple.',meaning:'I hope your next shit is a pineapple.',note:'Not a recognised French saying. It is our own deeply regrettable contribution.'}
+  ]},
+  { id:'sarcasm', title:'Sarcasm & fake politeness', subtitle:'Smile sweetly while your soul leaves the room', level:'Advanced', emoji:'🙃', phrases:[
+    {fr:'Quelle brillante idée !',pron:'kell bree-yahnt ee-day',literal:'What a brilliant idea!',meaning:'What a brilliant idea! (Usually the opposite.)',note:'The words are positive. Your tone does all the damage. Deliver slowly with a perfectly straight face.'},
+    {fr:'C\'est vraiment passionnant...',pron:'say vray-mahn pah-see-yoh-nahn',literal:'It is truly fascinating...',meaning:'This is absolutely riveting... (It is not.)',note:'A classic bit of dry sarcasm. The longer the pause, the stronger the effect.'},
+    {fr:'Tu as toujours le don de choisir le bon moment.',pron:'tew ah too-zhoor luh don duh shwah-zeer luh bon moh-mahn',literal:'You always have the gift of choosing the right moment.',meaning:'You really know how to pick your moments.',note:'Polite grammar, devastating subtext. Best used when someone interrupts you.'},
+    {fr:'Mais quelle surprise !',pron:'may kell sewr-preez',literal:'But what a surprise!',meaning:'Well, what a surprise. (Not surprised.)',note:'A wonderfully compact way to express absolutely no surprise whatsoever.'}
+  ]},
+  { id:'afterwork', title:'After work: drinks & peace', subtitle:'You have clocked off. Humanity can wait.', level:'Essential', emoji:'🍺', phrases:[
+    {fr:'Une bière pression, s\'il vous plaît.',pron:'ewn byair press-yohn, seel voo pleh',literal:'A draught beer, if it pleases you.',meaning:'A draught beer, please.',note:'A useful bar phrase. Une bière blonde is a lager; une bière brune is a dark beer.'},
+    {fr:'Un whisky, sans glace, s\'il vous plaît.',pron:'uhn wees-kee, sahn glass, seel voo pleh',literal:'A whisky, without ice, if it pleases you.',meaning:'A whisky, no ice, please.',note:'Sans glace means without ice. Simple, clear, and straight to the point.'},
+    {fr:'L\'addition, s\'il vous plaît.',pron:'lah-dee-syohn, seel voo pleh',literal:'The addition, if it pleases you.',meaning:'The bill, please.',note:'Essential when it is time to leave. In France, service is generally included, but rounding up for good service is appreciated.'},
+    {fr:'Laisse-moi finir ma bière tranquille.',pron:'less mwah fee-neer mah byair trahn-keel',literal:'Let me finish my beer peacefully.',meaning:'Leave me alone until I have finished my beer.',note:'Informal and very natural. Laisse-moi is for one person you know. The beer has priority.'},
+    {fr:'Ne me parle pas avant que j\'aie fini mon joint.',pron:'nuh muh parl pah ah-vahn kuh zhay fee-nee mon zhwan',literal:'Do not speak to me before I have finished my joint.',meaning:'Don\'t talk to me until I have finished my joint.',note:'Direct and colloquial. Avant que takes the subjunctive here: j\'aie fini. A very clear boundary, delivered with maximum calm.'},
+    {fr:'Je décompresse. On verra ça demain.',pron:'zhuh day-kom-press. on veh-rah sah duh-man',literal:'I am decompressing. We will see that tomorrow.',meaning:'I am unwinding. We can deal with that tomorrow.',note:'A useful way to declare the working day officially deceased.'}
   ]}
 ];
 
