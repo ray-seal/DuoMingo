@@ -11,7 +11,7 @@ const lessons = [
   { id:'irritation', title:'Mildly miffed', subtitle:'The patience bar is starting to flicker', level:'Medium', emoji:'😑', phrases:[
     {fr:'Tu me fatigues.',pron:'too muh fah-teeg',literal:'You tire me.',meaning:'You are doing my head in.',note:'A wonderfully efficient way to say someone is exhausting.'},
     {fr:'J\'en ai marre.',pron:'zhahn ay mahr',literal:'I have had enough of it.',meaning:'I am fed up.',note:'One of the most useful everyday expressions in this entire course.'},
-    {fr:'Ça suffit maintenant !',pron:'sah sue-fee mah(n)-tuh-nahn',literal:'That is enough now!',meaning:'That's enough now!',note:'Firm, clear, and suitable for a surprising number of situations.'}
+    {fr:'Ça suffit maintenant !',pron:'sah sue-fee mah(n)-tuh-nahn',literal:'That is enough now!',meaning:'That\'s enough now!',note:'Firm, clear, and suitable for a surprising number of situations.'}
   ]},
   { id:'fedup', title:'Absolutely fed up', subtitle:'The customer-service smile has left the building', level:'Spicy', emoji:'🌶️', phrases:[
     {fr:'Foutez-moi la paix !',pron:'foo-tay mwah lah peh',literal:'Give me peace!',meaning:'Leave me the hell alone!',note:'Blunt and rude. This is the vous form, but it is not remotely polite.'},
